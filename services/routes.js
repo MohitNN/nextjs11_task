@@ -1,2 +1,2 @@
 export const CALENDAR = '/calendar'
-export const USERS = '/users/all-users'
+export const USERS = '/users'

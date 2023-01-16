@@ -19,19 +19,14 @@ const Sidebar = ({setCollapsed,collapsed}) => {
   const router = useRouter();
 
       const items = [
-        // getItem('Option 1', '1', <PieChartOutlined />),
-        // getItem('Option 2', '2', <DesktopOutlined />),
-        getItem('Users', 'sub1', <UserOutlined />, [
-          getItem('All Users', 'All Users'),
-        ]),
-        getItem('Calender', 'Calender', <TeamOutlined />),
-        getItem('Files', 'Files', <FileOutlined />),
+        getItem('Users', 'Users', <TeamOutlined />),
+        getItem('Calender', 'Calender', <CalendarOutlined />),
       ];
 
      const handleNavigation = (key) =>{
         switch (key) {
-          case 'All Users':
-            router.push(USERS)
+          case 'Users':
+            router.replace(USERS)
             break;
           case 'Calender':
             router.replace(CALENDAR)

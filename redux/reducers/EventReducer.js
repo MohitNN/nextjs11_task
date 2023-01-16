@@ -1,5 +1,5 @@
 import { storeLoggedInUser } from "../../services/StorageService"
-import { GET_USER, USER_LOGIN } from "../actions/EventAction"
+import { GET_USER, STORE_USERS, USER_LOGIN } from "../actions/EventAction"
 
 let initialstate = {
    user:{}
@@ -14,6 +14,9 @@ const EventReducer = function(state=initialstate,action){
             return{...state,
                  user:action.payload,
             }
+        }
+        case STORE_USERS:{
+            localStorage.setItem("add-users", JSON.stringify(action.payload));
         }
         default:
             return state

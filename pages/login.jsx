@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Checkbox, Form, Input, Text ,Spin} from 'antd';
 import { getLoggedInUser, storeLoggedInUser } from '../services/StorageService';
 import { useRouter } from 'next/router';
-import { getUser, userLogin } from '../redux/actions/EventAction';
+import {  getUserLogin, userLogin } from '../redux/actions/EventAction';
 import { useDispatch ,useSelector} from 'react-redux';
 import BackDrop from '../component/action/BackDrop';
 const login = () => {
@@ -12,7 +12,7 @@ const login = () => {
     const dispatch = useDispatch();
     
     useEffect(() => {
-        dispatch(getUser());
+        dispatch(getUserLogin());
        
     },[dispatch])
     const user=useSelector((s)=>s.EventReducer.user);

@@ -14,3 +14,6 @@ a {
 * {
   box-sizing: border-box;
 }
+.css-dev-only-do-not-override-1i9hnpv .ant-form-item .ant-form-item-label{
+  text-align: left!important;
+}
