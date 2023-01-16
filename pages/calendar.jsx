@@ -1,32 +1,40 @@
 import FullCalendar from "@fullcalendar/react"
 import dayGridPlugin from '@fullcalendar/daygrid'
-import React, { useState } from 'react';
+import {useRouter} from 'next/router';
+import HeaderComp from '../component/layout/HeaderComp';
+import FooterComp from '../component/layout/FooterComp';
+import Sidebar from '../component/layout/Sidebar';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import Sidebar from './Sidebar';
-import HeaderComp from './HeaderComp';
-import FooterComp from './FooterComp';
-import { useRouter } from 'next/router';
-import { CALENDAR } from '../../services/routes';
+import { useState ,useEffect } from "react";
+import interactionPlugin from '@fullcalendar/interaction';
+import EventModal from "../component/action/EventModal";
 const { Header, Content, Footer, Sider } = Layout;
-
 const Calendar = () => {
-    const events = [
-        {
-            title: 'The Title',
-            start: '2023-09-01',
-            end: '2023-09-02'
-        }
-    ]
+    const [collapsed, setCollapsed] = useState(false);
+    const [show,setShow] = useState(false)
+    const {
+      token: { colorBgContainer },
+    } = theme.useToken();
 
+    const events = [{ 
+        title: 'The Title', 
+        start: '2023-01-16', 
+        end: '2023-01-20',
+      }]
+
+      useEffect(()=>{
+        localStorage.setItem('events',[])
+      },[])
     return (<>
+    <EventModal show={show} setShow={setShow}/>
         <Layout
             style={{
                 minHeight: '100vh',
             }}
         >
 
-            <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
             <Layout className="site-layout">
+            <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
                 <HeaderComp />
                 <Content
                     style={{
@@ -48,14 +56,16 @@ const Calendar = () => {
                             background: colorBgContainer,
                         }}
                     >
-                        <FullCalendar plugins={[dayGridPlugin]}
-                            initialView="dayGridMonth" events={events} />
+                        <FullCalendar plugins={[dayGridPlugin,interactionPlugin]}
+                            initialView="dayGridMonth" events={events} selectable={true}  editable= {true}
+                            dateClick={((info)=>setShow(true))}
+                            eventClick={()=>{alert('clicked!!!');console.log('clicked!!!!!!!!!!!!!!!!!')}}
+                            />
                     </div>
                 </Content>
                 <FooterComp />
             </Layout>
         </Layout>
-
 
     </>)
 }
