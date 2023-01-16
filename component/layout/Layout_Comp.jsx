@@ -61,8 +61,8 @@ const Layout_Comp = () => {
                 margin: '16px 0',
               }}
             >
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
+              <Breadcrumb.Item>Users</Breadcrumb.Item>
+              <Breadcrumb.Item>All Users</Breadcrumb.Item>
             </Breadcrumb>
             <div
               style={{

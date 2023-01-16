@@ -1,0 +1,16 @@
+.login-form-main{
+    position: absolute;
+    top: 35%!important;
+     left: 25%!important;
+     width: 50%;
+     border: 1px solid rgb(96, 96, 97);
+     padding: 40px;
+     border-radius: 10px;
+}
+.login-text
+{
+    position: absolute;
+    top: 26%!important;
+    left: 47.5%!important;
+    color: rgb(75, 75, 255);
+}
