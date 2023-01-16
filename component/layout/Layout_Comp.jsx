@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import Sidebar from '../component/layout/Sidebar';
-import HeaderComp from '../component/layout/HeaderComp';
-import FooterComp from '../component/layout/FooterComp';
+import Sidebar from './Sidebar';
+import HeaderComp from './HeaderComp';
+import FooterComp from './FooterComp';
 import {useRouter} from 'next/router';
 import { CALENDAR } from '../../services/routes';
 import Calender from '../../pages/calendar/Calender';
