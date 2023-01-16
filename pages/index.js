@@ -16,6 +16,7 @@ const Layout_Comp = () => {
   } = theme.useToken();
 
   const router = useRouter();
+  console.log(router)
   console.log(CALENDAR)
   console.log(router.pathname)
   return (
@@ -49,7 +50,7 @@ const Layout_Comp = () => {
                 background: colorBgContainer,
               }}
             >
-              {router.pathname == CALENDAR ? <Calender/> :'this is cat'}
+              {/* {router.pathname == CALENDAR ? <Calendar/> :'/'} */}
             </div>
           </Content>
           <FooterComp/>
