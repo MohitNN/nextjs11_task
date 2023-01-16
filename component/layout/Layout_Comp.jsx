@@ -5,8 +5,8 @@ import HeaderComp from './HeaderComp';
 import FooterComp from './FooterComp';
 import {useRouter} from 'next/router';
 import { CALENDAR } from '../../services/routes';
-import Calender from '../../pages/calendar/Calender';
 const { Header, Content, Footer, Sider } = Layout;
+import Calendar from '../../pages/calendar';
 
 
 const Layout_Comp = () => {
@@ -15,9 +15,9 @@ const Layout_Comp = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  // const router = useRouter();
-  // console.log(CALENDAR)
-  // console.log(router.pathname)
+  const router = useRouter();
+  console.log(CALENDAR)
+  console.log(router.pathname)
   return (
     <>
       <Layout
@@ -49,7 +49,7 @@ const Layout_Comp = () => {
                 background: colorBgContainer,
               }}
             >
-              {/* {router.pathname == CALENDAR ? <Calender/> :'this is cat'} */}
+              {router.pathname == CALENDAR ? <Calender/> :'this is cat'}
             </div>
           </Content>
           <FooterComp/>
