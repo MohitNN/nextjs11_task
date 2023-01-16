@@ -9,8 +9,8 @@ const Model_Comp = ({ show, setShow }) => {
     const getUser=JSON.parse(localStorage.getItem('add-users'));
     console.log(getUser)
     const onFinish = (values) => {
-        dispatch(storeUsers(values));
-        console.log('Success:', {id:uuidv4(),firstname:values.firstname,lastname:values.lastname,email:values.email});
+        dispatch(storeUsers({id:uuidv4(),firstname:values.firstname,lastname:values.lastname,email:values.email}));
+        console.log('Success:', );
         setShow(false);
     };
     const onFinishFailed = (errorInfo) => {
