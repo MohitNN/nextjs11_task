@@ -8,8 +8,12 @@ import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { useState ,useEffect } from "react";
 import interactionPlugin from '@fullcalendar/interaction';
 import EventModal from "../component/action/EventModal";
+import { useSelector } from "react-redux";
 const { Header, Content, Footer, Sider } = Layout;
 const Calendar = () => {
+
+    const eventList = useSelector((state)=>state.EventReducer.events);
+
     const [collapsed, setCollapsed] = useState(false);
     const [show,setShow] = useState(false)
     const {
@@ -26,7 +30,7 @@ const Calendar = () => {
         localStorage.setItem('events',[])
       },[])
     return (<>
-    <EventModal show={show} setShow={setShow}/>
+    <EventModal show={show} setShow={setShow} events={eventList}/>
         <Layout
             style={{
                 minHeight: '100vh',
@@ -46,8 +50,8 @@ const Calendar = () => {
                             margin: '16px 0',
                         }}
                     >
-                        <Breadcrumb.Item>User</Breadcrumb.Item>
-                        <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                        <Breadcrumb.Item>Calendar</Breadcrumb.Item>
+                        {/* <Breadcrumb.Item>Bill</Breadcrumb.Item> */}
                     </Breadcrumb>
                     <div
                         style={{

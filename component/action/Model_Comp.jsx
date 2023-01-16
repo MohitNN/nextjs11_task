@@ -1,36 +1,34 @@
 import React from 'react'
-import { Button, Modal, Checkbox, Form, Input, Space, DatePicker } from 'antd';
+import { Button, Modal, Checkbox, Form, Input, Space } from 'antd';
+import { useDispatch } from 'react-redux';
+import { storeUsers } from '../../redux/actions/EventAction';
 import { v4 as uuidv4 } from 'uuid';
-import { useSelector } from 'react-redux';
-import moment from 'moment';
+const Model_Comp = ({ show, setShow }) => {
 
-const EventModal = ({ show, setShow,events }) => {
-
-    console.log(events,'-------events----')
-    
+    const dispatch=useDispatch();
+    const getUser=JSON.parse(localStorage.getItem('add-users'));
+    console.log(getUser)
     const onFinish = (values) => {
-        
-        // console.log(values.start_date.$d)
-        console.log(moment(values.start_date.$d))
-            // setLoading(true)
-            // dispatch(userLogin(values,setLoading,router));
-        };
-        const onFinishFailed = (errorInfo) => {
-            console.log('Failed:', errorInfo);
-        };
-    const handleOk = () => {
-        alert()
+        dispatch(storeUsers(values));
+        console.log('Success:', {id:uuidv4(),firstname:values.firstname,lastname:values.lastname,email:values.email});
+        setShow(false);
+    };
+    const onFinishFailed = (errorInfo) => {
+        // console.log('Failed:', errorInfo);
+    };
+   
+    const handleCancel=()=>{
+        setShow(false);
     }
-    
     return (
         <>
             <Modal
-                title="Add Event"
+                title="Add Users"
                 open={show}
-                onOk={handleOk}
+                // onOk={handleOk}
                 footer={null}
                 // confirmLoading={confirmLoading}
-                onCancel={() => setShow(false)}
+                onCancel={handleCancel}
             >
                 <Form
                     name="basic"
@@ -43,8 +41,8 @@ const EventModal = ({ show, setShow,events }) => {
                     autoComplete="off"
                 >
                     <Form.Item
-                        label="Title"
-                        name="title"
+                        label="First Name"
+                        name="firstname"
                         labelCol={{
                             span: 6,
                         }}
@@ -54,7 +52,7 @@ const EventModal = ({ show, setShow,events }) => {
                         rules={[
                             {
                                 required: true,
-                                message: 'enter event title',
+                                message: 'Please input your first name!',
                             },
                         ]}
                     >
@@ -62,8 +60,8 @@ const EventModal = ({ show, setShow,events }) => {
                     </Form.Item>
 
                     <Form.Item
-                        label="Start date"
-                        name="start_date"
+                        label="Last Name"
+                        name="lastname"
                         labelCol={{
                             span: 6,
                         }}
@@ -72,19 +70,17 @@ const EventModal = ({ show, setShow,events }) => {
                         }}
                         rules={[
                             {
-                                type: 'object',
                                 required: true,
-                                message: 'enter starting date of an event!',
+                                message: 'Please input your last name!',
                             },
                         ]}
                     >
-                        {/* <Input /> */}
-                        <DatePicker />
+                        <Input />
                     </Form.Item>
 
                     <Form.Item
-                        label="Ending date"
-                        name="ending_date"
+                        label="Email"
+                        name="email"
                         labelCol={{
                             span: 6,
                         }}
@@ -93,24 +89,26 @@ const EventModal = ({ show, setShow,events }) => {
                         }}
                         rules={[
                             {
-                                type: 'object',
+                                type: "email",
+                                message: "Please provide a valid email!"
+                            },
+                            {
                                 required: true,
-                                message: 'enter ending date of an event!',
+                                message: 'Please input your email!',
                             },
                         ]}
                     >
-                        {/* <Input /> */}
-                        <DatePicker />
+                        <Input />
                     </Form.Item>
                     {/* <div style={{display:"flex"}}> */}
-                    <Space>  <Form.Item
+                    <Space wrap style={{ justifyContent: "end", width: "100%" }}>  <Form.Item
                         wrapperCol={{
                             offset: 0,
                         }}
                     >
 
-                        <Button type="danger" htmlType="button" danger onClick={()=>setShow(false)}>
-                            Cancle
+                        <Button type="primary" danger onClick={()=>{handleCancel()}}>
+                            cancle
                         </Button>
                     </Form.Item>
                         <Form.Item
@@ -131,4 +129,4 @@ const EventModal = ({ show, setShow,events }) => {
     )
 }
 
-export default EventModal
+export default Model_Comp
