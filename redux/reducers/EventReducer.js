@@ -8,3 +8,4 @@ const EventReducer = function(state=initialstate,action){
             return state
     }
 }
+export default EventReducer
