@@ -38,7 +38,7 @@ const Sidebar = ({setCollapsed,collapsed}) => {
 
   return (
     <>
-        <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} style={{height:'100vh'}}>
+        <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} >
           <div
             style={{
               height: 32,
