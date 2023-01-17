@@ -12,7 +12,6 @@ import { CALENDAR, LOGIN } from "../services/routes";
 var $ = require("jquery");
 const Calendar = () => {
   const events = useSelector((state) => state.EventReducer.events);
-  console.log(events,'-----------------calendart events')
   const [startingDate, setStartingDate] = useState("");
   const [show, setShow] = useState(false);
   const [warning, setWarning] = useState(false);

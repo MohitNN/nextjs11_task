@@ -19,7 +19,7 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
 
 
   const onFinish = (values) => {
-    let eventObj = { id: event.show ? event.info.id : uuidv4(), title: values.title, start: starting_date, end:values.ending_date ? moment(values.ending_date.$d).add('00:00:00', "LTS").format() : moment(event.info.end)}
+    let eventObj = { id: event.info.end ? event.info.id : uuidv4(), title: values.title, start: starting_date, end:values.ending_date ? moment(values.ending_date.$d).add('00:00:00', "LTS").format() : moment(event.info.end)}
     if (event.show == true) { dispatch(updateEvent(event.info, eventObj, setShow, form, setStartingDate)) }
     else dispatch(storeEvents(eventObj, setShow, form, setStartingDate))
 
@@ -32,7 +32,8 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
 
   const handleDelete = () => {
     
-    dispatch(deleteEvent(event.info, setEvent, setShow, form, setStartingDate))
+    dispatch(deleteEvent(event.info))
+    handleCancel();
   }
   const handleOk = () => {
     alert();
@@ -51,11 +52,11 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
   return (
     <>
       <Modal
-        title="Add Event"
+        title={event.info.end ? 'Update Event' :'Add Event'}
         open={show}
         onOk={handleOk}
         footer={null}
-        onCancel={() => { setShow(false); setEvent({ show: false, info: {} }) }}
+        onCancel={() => handleCancel()}
       >
         <Form
           name="basic"
