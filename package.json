@@ -15,6 +15,7 @@
     "@fullcalendar/interaction": "^6.0.3",
     "@fullcalendar/react": "^6.0.4",
     "antd": "^5.1.5",
+    "dayjs": "^1.11.7",
     "formik": "^2.2.9",
     "jquery": "^3.6.3",
     "moment": "^2.29.4",

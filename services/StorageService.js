@@ -9,3 +9,4 @@ const removeData =(key) => {
   return localStorage.clear();
  }
 export {storeData,getData,removeData}
+

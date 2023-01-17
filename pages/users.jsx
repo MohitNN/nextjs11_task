@@ -71,7 +71,7 @@ const users = () => {
          }
          else
          {
-            router.push("/login")
+            router.push(LOGIN)
          }
     },[login_user])
     const handleDelete = (item) => {

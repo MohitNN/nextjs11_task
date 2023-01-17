@@ -10,10 +10,21 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
   const dispatch = useDispatch()
   const [form] = Form.useForm()
 
+  const handleCancel = () =>{
+    setShow(false);
+    setStartingDate('');
+    setEvent({show:false,info:{}})
+    form.resetFields();
+  }
+
+
   const onFinish = (values) => {
-    let eventObj = { id: event.show ? event.info.id : uuidv4(), title: values.title, start: starting_date, end: moment(values.ending_date.$d).add('00:00:00', "LTS").format() }
+    let eventObj = { id: event.show ? event.info.id : uuidv4(), title: values.title, start: starting_date, end:values.ending_date ? moment(values.ending_date.$d).add('00:00:00', "LTS").format() : moment(event.info.end)}
     if (event.show == true) { dispatch(updateEvent(event.info, eventObj, setShow, form, setStartingDate)) }
     else dispatch(storeEvents(eventObj, setShow, form, setStartingDate))
+
+   handleCancel();
+
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -27,12 +38,12 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
     alert();
   };
 
+
   useEffect(() => {
     if (event.show) {
       setStartingDate(event.info.start)
       form.setFieldsValue({
         title: event.info.title,
-        ending_date: moment(event.info.end),
       });
     }
   }, [event.show])
@@ -84,14 +95,16 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
               span: 16,
             }}
             rules={[
-              {
-                type: "object",
-                required: true,
-                message: "enter ending date of an event!",
-              },
+             event.info.end ? null: {
+              type: "object",
+              required: true,
+              message: "enter ending date of an event!",
+            } 
             ]}
           >
+            
             <DatePicker
+            placeholder={`${moment(event.info.end).format('YYYY-MM-DD')}`}
               disabledDate={(current) => {
                 return moment(starting_date).add(0, "days") >= current || moment().add(0, "days") >= current;
               }}
@@ -107,7 +120,7 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
                 type="primary"
                 htmlType="button"
                 danger
-                onClick={() => { event.show ? handleDelete() : setShow(false) }}
+                onClick={() => { event.show ? handleDelete() : handleCancel() }}
               >
                 {event.show ? 'Delete' : 'Cancel'}
               </Button>
