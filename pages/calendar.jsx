@@ -5,9 +5,11 @@ import { useState, useEffect } from "react";
 import interactionPlugin from "@fullcalendar/interaction";
 import EventModal from "../component/action/EventModal";
 import { useSelector, useDispatch } from "react-redux";
-import { getEvents } from '../redux/actions/EventAction';
+import { getEvents, getUserLogin } from '../redux/actions/EventAction';
 const { Header, Content, Footer, Sider } = Layout;
 import moment from "moment";
+import { useRouter } from "next/router";
+import { CALENDAR, USERS } from "../services/routes";
 var $ = require("jquery");
 const Calendar = () => {
   const events = useSelector((state) => state.EventReducer.events);
@@ -27,8 +29,20 @@ const Calendar = () => {
     } = theme.useToken();
 
     let pageLoaded = false;
-
-
+    const router=useRouter();
+    useEffect(()=>{
+       dispatch(getUserLogin());
+    },[])
+    const login_user = useSelector((s) => s.EventReducer.user);
+    useEffect(()=>{
+         if(login_user){
+            router.push(CALENDAR)
+         }
+         else
+         {
+            router.push("/login")
+         }
+    },[login_user])
   return (
     <>
       <EventModal

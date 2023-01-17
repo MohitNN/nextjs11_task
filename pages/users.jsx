@@ -13,12 +13,7 @@ import UserDeleteModel from '../component/action/UserDeleteModel';
 import { USERS } from '../services/routes';
 const { Header, Content, Footer, Sider } = Layout;
 const users = () => {
-    const [collapsed, setCollapsed] = useState(false);
     const dispatch = useDispatch();
-
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
     const [show, setShow] = useState(false);
     const [open, setOpen] = useState(false);
     const [delitem, setDelItem] = useState();
@@ -74,19 +69,20 @@ const users = () => {
         return {...item,key:index+1}
     })
     const login_user = useSelector((s) => s.EventReducer.user);
-    // console.log(users)
     useEffect(()=>{
          if(login_user){
             router.push(USERS)
          }
+         else
+         {
+            router.push("/login")
+         }
     },[login_user])
     const handleDelete = (item) => {
-
         setOpen(true);
         setDelItem(item);
     }
     const handleEdit = (item) => {
-        console.log(item)
         setShow(true);
         setAction("edit")
         setEditItem(item);
