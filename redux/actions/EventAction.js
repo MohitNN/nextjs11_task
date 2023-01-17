@@ -4,15 +4,16 @@ export const GET_USER_LOGIN = "GET_USER_LOGIN"
 export const STORE_USERS = "STORE_USERS"
 export const GET_USERS = "GET_USERS"
 export const GET_EVENTS = "GET_EVENTS"
-export const DELETE_USERS = "DELETE_USERS"
+export const DELETE_EVENT = "DELETE_EVENT"
 export const UPDATE_USERS = "UPDATE_USERS"
+export const UPDATE_EVENT = "UPDATE_EVENT"
+export const DELETE_USERS="DELETE_USERS"
 
 export const userLogin = (obj, setLoading, router) => (dispatch) => {
     dispatch({
         type: USER_LOGIN,
         payload: obj
     })
-
     setLoading(false);
     router.push("/")
 }
@@ -25,8 +26,6 @@ export const getUserLogin = () => (dispatch) => {
 }
 
 export const storeUsers = (obj) => (dispatch) => {
-    console.log(obj, "------------users")
-
     var add = [];
     add = JSON.parse(localStorage.getItem('add-users')) || [];
     add.push(obj);
@@ -54,15 +53,11 @@ export const deleteUsers = (obj) => (dispatch) => {
 }
 
 export const updateUsers = (obj) => (dispatch) => {
-    const getUser = JSON.parse(localStorage.getItem('add-users'));
-    for (var i = 0; i < getUser.length; i++) {
-        if (obj.id === getUser[i].id) {
-            getUser[i].firstname = obj.firstname;
-            getUser[i].lastname = obj.lastname;
-            getUser[i].email = obj.email;
-            break;
-        }
-    }
+    let getUser = JSON.parse(localStorage.getItem('add-users'));
+    getUser = getUser.map((item)=>{
+        if(item.id == obj.id) return obj
+        else return item
+    })
     dispatch({
         type: UPDATE_USERS,
         payload: getUser
@@ -86,4 +81,33 @@ export const storeEvents = (obj,setShow,form,setStartingDate) =>(dispatch) =>{
     form.resetFields();
     setStartingDate('');
     setShow(false);
+}
+export const deleteEvent = (obj,setEvent,setShow,form,setStartingDate) => (dispatch) => {
+    const events = JSON.parse(localStorage.getItem('events'));
+    const filter_events = events.filter(item => item.id !== obj.id);
+    dispatch({
+        type: DELETE_EVENT,
+        payload: filter_events
+    })
+    setEvent({show:false,info:{}})
+    dispatch(getEvents())
+    setShow(false);
+    form.resetFields();
+    setStartingDate('');
+}
+
+export const updateEvent = (updateEvent,obj,setShow,form,setStartingDate) => (dispatch) => {
+    let events = JSON.parse(localStorage.getItem('events'));
+    events = events.map((item)=>{
+        if(item.id == updateEvent.id) return obj
+        else return item
+    })
+    dispatch({
+        type: UPDATE_EVENT,
+        payload: events
+    })
+    dispatch(getEvents())
+    setShow(false)
+    form.resetFields();
+    setStartingDate('');
 }

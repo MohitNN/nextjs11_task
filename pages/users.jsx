@@ -39,8 +39,8 @@ const users = () => {
     const columns = [
         {
             title: 'Id',
-            dataIndex: 'id',
-            key: 'id',
+            dataIndex: 'key',
+            key: 'key',
         },
         {
             title: 'First Name',
@@ -70,6 +70,9 @@ const users = () => {
         }
     ];
     const users = useSelector((s) => s.EventReducer.users);
+    const list = users && users.map((item,index)=>{
+        return {...item,key:index+1}
+    })
     const login_user = useSelector((s) => s.EventReducer.user);
     // console.log(users)
     useEffect(()=>{
@@ -95,7 +98,7 @@ const users = () => {
 
             <Button type="primary" onClick={() => handleAdd()} className="addbtn">Add</Button>
 
-            <Table columns={columns} dataSource={users} />
+            <Table columns={columns} dataSource={list} />
 
 
         </>
