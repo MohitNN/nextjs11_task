@@ -1,9 +1,5 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { useRouter } from "next/router";
-import HeaderComp from "../component/layout/HeaderComp";
-import FooterComp from "../component/layout/FooterComp";
-import Sidebar from "../component/layout/Sidebar";
 import { Breadcrumb, Layout, Menu, Tooltip, theme } from "antd";
 import { useState, useEffect } from "react";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -14,15 +10,12 @@ const { Header, Content, Footer, Sider } = Layout;
 import moment from "moment";
 
 const Calendar = () => {
-  // const events = [{title:'e1',start:'2023-01-17',end:'2023-01-18'},{title:'e2',start:'2023-01-17',end:'2023-01-18'}]
   const events = useSelector((state) => state.EventReducer.events);
-  console.log(events)
 
   const [collapsed, setCollapsed] = useState(false);
   const [startingDate, setStartingDate] = useState("");
   const [show, setShow] = useState(false);
   const [list,setList] = useState([]);
-  // const [showEvent,setShowEvent] = useState(false);
   const [event,setEvent] = useState({show:false,info:{}});
 
   const dispatch = useDispatch();
@@ -37,10 +30,6 @@ let pageLoaded = false;
     return ()=>pageLoaded=true
   },[pageLoaded,show,dispatch])
 
-  // useEffect(() => {
-  //   if( !events || events?.length == 0) localStorage.setItem("events", []);
-  //   else {return }
-  // }, []);
 
   return (
     <>
@@ -49,8 +38,6 @@ let pageLoaded = false;
         setShow={setShow}
         starting_date={startingDate}
         setStartingDate={setStartingDate}
-        // showEvent={showEvent}
-        // setShowEvent={setShowEvent}
         event={event}
         setEvent={setEvent}
       />
@@ -68,8 +55,6 @@ let pageLoaded = false;
                 eventClick={(info) => {
                   setShow(true)
                   setEvent((event)=>({show:true,info:info.event}))
-                  // setEvent(info.event)
-                  // setShowEvent(true);          
                 }}
               />
     </>

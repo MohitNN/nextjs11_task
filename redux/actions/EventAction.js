@@ -4,8 +4,9 @@ export const GET_USER_LOGIN = "GET_USER_LOGIN"
 export const STORE_USERS = "STORE_USERS"
 export const GET_USERS = "GET_USERS"
 export const GET_EVENTS = "GET_EVENTS"
-export const DELETE_USERS = "DELETE_USERS"
+export const DELETE_EVENT = "DELETE_EVENT"
 export const UPDATE_USERS = "UPDATE_USERS"
+export const UPDATE_EVENT = "UPDATE_EVENT"
 
 export const userLogin = (obj, setLoading, router) => (dispatch) => {
     dispatch({
@@ -79,6 +80,7 @@ export const getEvents = () => (dispatch) =>{
   }
 
 export const storeEvents = (obj,setShow,form,setStartingDate) =>(dispatch) =>{
+    console.log(obj,'-------------------------------add')
   let events = JSON.parse(localStorage.getItem('events')) || [];
   if(events.length == 0) events = [obj];
   else (events).push(obj)
@@ -86,4 +88,42 @@ export const storeEvents = (obj,setShow,form,setStartingDate) =>(dispatch) =>{
     form.resetFields();
     setStartingDate('');
     setShow(false);
+}
+export const deleteEvent = (obj,setEvent,setShow,form,setStartingDate) => (dispatch) => {
+    const events = JSON.parse(localStorage.getItem('events'));
+    const filter_events = events.filter(item => item.id !== obj.id);
+    dispatch({
+        type: DELETE_EVENT,
+        payload: filter_events
+    })
+    setEvent({show:false,info:{}})
+    dispatch(getEvents())
+    setShow(false);
+    form.resetFields();
+    setStartingDate('');
+}
+
+export const updateEvent = (updateEvent,obj,setShow,form,setStartingDate) => (dispatch) => {
+    console.log(obj,'-----------update')
+    let events = JSON.parse(localStorage.getItem('events'));
+    events = events.map((item)=>{
+        if(item.id == updateEvent.id) return obj
+        else return item
+    })
+    // for (var i = 0; i < events.length; i++) {
+    //     if (obj.id === events[i].id) {
+    //         events[i].firstname = obj.firstname;
+    //         events[i].lastname = obj.lastname;
+    //         events[i].email = obj.email;
+    //         break;
+    //     }
+    // }
+    dispatch({
+        type: UPDATE_EVENT,
+        payload: events
+    })
+    dispatch(getEvents())
+    setShow(false)
+    form.resetFields();
+    setStartingDate('');
 }

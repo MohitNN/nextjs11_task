@@ -3,21 +3,27 @@ import { Button, Modal, Checkbox, Form, Input, Space, DatePicker } from "antd";
 import { v4 as uuidv4 } from "uuid";
 import { useSelector ,useDispatch} from "react-redux";
 import moment from "moment";
-import { storeEvents } from '../../redux/actions/EventAction';
+import { deleteEvent, storeEvents, updateEvent } from '../../redux/actions/EventAction';
 
 const EventModal = ({ show, setShow ,starting_date,setStartingDate,setEvent,event}) => {
 
   const dispatch = useDispatch()
   const [form] = Form.useForm()
-  // console.log(event,'---------update-----------')
+  console.log(event.show,'---------event.show-----------')
 
   const onFinish = (values) => {
-    let event ={id:uuidv4(), title: values.title,start:starting_date,end:moment(values.ending_date.$d).add('00:00:00', "LTS").format()}
-    dispatch(storeEvents(event,setShow,form,setStartingDate))
+    let eventObj ={id:event.show ? event.info.id :uuidv4(), title: values.title,start:starting_date,end:moment(values.ending_date.$d).add('00:00:00', "LTS").format()}
+    console.log(event,'==============evnet================')
+    if(event.show == true) {dispatch(updateEvent(event.info,eventObj,setShow,form,setStartingDate))}
+    else dispatch(storeEvents(eventObj,setShow,form,setStartingDate))
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  const handleDelete = () =>{
+    dispatch(deleteEvent(event.info,setEvent,setShow,form,setStartingDate))
+  }
   const handleOk = () => {
     alert();
   };
@@ -32,6 +38,7 @@ const EventModal = ({ show, setShow ,starting_date,setStartingDate,setEvent,even
       });
     }
   },[event.show])
+
   return (
     <>
       <Modal
@@ -115,7 +122,7 @@ const EventModal = ({ show, setShow ,starting_date,setStartingDate,setEvent,even
             />
           </Form.Item>
           {/* <div style={{display:"flex"}}> */}
-          <Space>
+          <Space wrap style={{ justifyContent: "end", width: "100%" }}>
             {" "}
             <Form.Item
               wrapperCol={{
@@ -123,10 +130,10 @@ const EventModal = ({ show, setShow ,starting_date,setStartingDate,setEvent,even
               }}
             >
               <Button
-                type="danger"
+                type="primary"
                 htmlType="button"
                 danger
-                onClick={() => setShow(false)}
+                onClick={() => {event.show ? handleDelete() :setShow(false)}}
               >
                 {event.show ? 'Delete' : 'Cancel'}
               </Button>

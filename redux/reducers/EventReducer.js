@@ -1,5 +1,5 @@
 import { storeLoggedInUser } from "../../services/StorageService"
-import { GET_USERS, GET_USER_LOGIN, STORE_USERS, USER_LOGIN ,GET_EVENTS, DELETE_USERS, UPDATE_USERS} from "../actions/EventAction"
+import { GET_USERS, GET_USER_LOGIN, STORE_USERS, USER_LOGIN ,GET_EVENTS, DELETE_USERS, UPDATE_USERS, DELETE_EVENT, UPDATE_EVENT} from "../actions/EventAction"
 
 let initialstate = {
    user:{},
@@ -32,6 +32,12 @@ const EventReducer = function(state=initialstate,action){
         }
         case DELETE_USERS:{
             localStorage.setItem("add-users", JSON.stringify(action.payload));
+        }
+        case DELETE_EVENT:{
+            localStorage.setItem("events", JSON.stringify(action.payload));
+        }
+        case UPDATE_EVENT:{
+            localStorage.setItem("events", JSON.stringify(action.payload));
         }
         // case STORE_EVENTS:{
         //     localStorage.setItem('events',JSON.stringify(action.payload))
