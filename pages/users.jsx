@@ -8,7 +8,7 @@ import { getUserLogin, getUsers } from '../redux/actions/EventAction';
 import { Space, Table,} from 'antd';
 import UserDeleteModel from '../component/action/UserDeleteModel';
 import { LOGIN, USERS } from '../services/routes';
-const users = () => {
+const Users = () => {
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);
     const [open, setOpen] = useState(false);
@@ -97,4 +97,4 @@ const users = () => {
     )
 }
 
-export default users
+export default Users
