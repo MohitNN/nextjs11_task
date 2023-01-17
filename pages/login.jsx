@@ -16,12 +16,12 @@ const login = () => {
        
     },[dispatch])
     const user=useSelector((s)=>s.EventReducer.user);
-    useEffect(()=>{
-         if(user)
-         {
-            router.push("/");
-         }
-    },[user])
+    // useEffect(()=>{
+    //      if(user)
+    //      {
+    //         router.push("/");
+    //      }
+    // },[user])
     const onFinish = (values) => {
     console.log(values)
         setLoading(true)

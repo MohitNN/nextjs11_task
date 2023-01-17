@@ -1,40 +1,51 @@
 import React, { useEffect } from 'react'
-import {useRouter} from 'next/router';
+import Router, { useRouter } from 'next/router';
 import HeaderComp from '../component/layout/HeaderComp';
 import FooterComp from '../component/layout/FooterComp';
 import Sidebar from '../component/layout/Sidebar';
-import { Breadcrumb, Layout, Menu, theme,Button } from 'antd';
+import { Breadcrumb, Layout, Menu, theme, Button } from 'antd';
 import { useState } from "react";
 import Model_Comp from '../component/action/Model_Comp';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUsers } from '../redux/actions/EventAction';
+import { getUserLogin, getUsers } from '../redux/actions/EventAction';
 import { Space, Table, Tag } from 'antd';
+import UserDeleteModel from '../component/action/UserDeleteModel';
+import { USERS } from '../services/routes';
 const { Header, Content, Footer, Sider } = Layout;
 const users = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const dispatch=useDispatch();
+    const dispatch = useDispatch();
+
     const {
-      token: { colorBgContainer },
+        token: { colorBgContainer },
     } = theme.useToken();
-    const [show,setShow]=useState(false);
-    const handleAdd=()=>{
-         
-         setShow(true);
+    const [show, setShow] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [delitem, setDelItem] = useState();
+    const [edititem, setEditItem] = useState();
+    const [action, setAction] = useState();
+    const router=useRouter();
+    const handleAdd = () => {
+
+        setShow(true);
+        setAction("add");
 
     }
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getUsers())
-    },[dispatch])
+        dispatch(getUserLogin())
+    }, [dispatch])
+
     const columns = [
         {
             title: 'Id',
             dataIndex: 'id',
             key: 'id',
-          },
+        },
         {
-          title: 'First Name',
-          dataIndex: 'firstname',
-          key: 'firstname',
+            title: 'First Name',
+            dataIndex: 'firstname',
+            key: 'firstname',
         },
         {
             title: 'Last Name',
@@ -47,61 +58,48 @@ const users = () => {
             key: 'email',
         },
         {
-            title:"Action",
+            title: "Action",
             dataIndex: 'action',
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Button type="primary">Edit</Button>
-                    <Button type="primary" danger>Delete</Button>
+                    <Button type="primary" onClick={() => { handleEdit(record) }}>Edit</Button>
+                    <Button type="primary" danger onClick={() => { handleDelete(record) }}>Delete</Button>
                 </Space>
-              ),
+            ),
         }
-      ];
-    const users=useSelector((s)=>s.EventReducer.users);
-    console.log(users)
-  return (
-    <>
-         {show?<Model_Comp show={show} setShow={setShow}/>:null}
-            <Layout
-            style={{
-                minHeight: '100vh',
-            }}
-        >
+    ];
+    const users = useSelector((s) => s.EventReducer.users);
+    const login_user = useSelector((s) => s.EventReducer.user);
+    // console.log(users)
+    useEffect(()=>{
+         if(login_user){
+            router.push(USERS)
+         }
+    },[login_user])
+    const handleDelete = (item) => {
 
-            <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
-            <Layout className="site-layout">
-                <HeaderComp />
-                <Content
-                    style={{
-                        margin: '0 16px',
-                    }}
-                >
-                    <Breadcrumb
-                        style={{
-                            margin: '16px 0',
-                        }}
-                    >
-                        <Breadcrumb.Item>Users</Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div
-                        style={{
-                            padding: 24,
-                            minHeight: 360,
-                            background: colorBgContainer,
-                        }}
-                    >
-                        <Button type="primary" onClick={()=>handleAdd()}>Add</Button>
+        setOpen(true);
+        setDelItem(item);
+    }
+    const handleEdit = (item) => {
+        console.log(item)
+        setShow(true);
+        setAction("edit")
+        setEditItem(item);
+    }
+    return (
+        <>
+            {show ? <Model_Comp show={show} setShow={setShow} edititem={edititem} setEditItem={setEditItem} action={action} setAction={setAction} /> : null}
+            {open ? <UserDeleteModel open={open} setOpen={setOpen} delitem={delitem} setDelItem={setDelItem} /> : null}
 
-                        <Table columns={columns} dataSource={users} />
-                       
-                    </div>
-                </Content>
-                <FooterComp />
-            </Layout>
-        </Layout>
-    </>
-  )
+            <Button type="primary" onClick={() => handleAdd()} className="addbtn">Add</Button>
+
+            <Table columns={columns} dataSource={users} />
+
+
+        </>
+    )
 }
 
 export default users

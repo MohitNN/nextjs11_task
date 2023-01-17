@@ -31,45 +31,13 @@ const Calendar = () => {
       },[])
     return (<>
     <EventModal show={show} setShow={setShow} events={eventList}/>
-        <Layout
-            style={{
-                minHeight: '100vh',
-            }}
-        >
-
-            <Layout className="site-layout">
-            <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
-                <HeaderComp />
-                <Content
-                    style={{
-                        margin: '0 16px',
-                    }}
-                >
-                    <Breadcrumb
-                        style={{
-                            margin: '16px 0',
-                        }}
-                    >
-                        <Breadcrumb.Item>Calendar</Breadcrumb.Item>
-                        {/* <Breadcrumb.Item>Bill</Breadcrumb.Item> */}
-                    </Breadcrumb>
-                    <div
-                        style={{
-                            padding: 24,
-                            minHeight: 360,
-                            background: colorBgContainer,
-                        }}
-                    >
+       
                         <FullCalendar plugins={[dayGridPlugin,interactionPlugin]}
                             initialView="dayGridMonth" events={events} selectable={true}  editable= {true}
                             dateClick={((info)=>setShow(true))}
                             eventClick={()=>{alert('clicked!!!');console.log('clicked!!!!!!!!!!!!!!!!!')}}
                             />
-                    </div>
-                </Content>
-                <FooterComp />
-            </Layout>
-        </Layout>
+                    
 
     </>)
 }

@@ -1,29 +1,46 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Modal, Checkbox, Form, Input, Space } from 'antd';
 import { useDispatch } from 'react-redux';
-import { storeUsers } from '../../redux/actions/EventAction';
+import { storeUsers, updateUsers } from '../../redux/actions/EventAction';
 import { v4 as uuidv4 } from 'uuid';
-const Model_Comp = ({ show, setShow }) => {
-
+const Model_Comp = ({ show, setShow ,edititem,setEditItem,action,setAction}) => {
+    const [form] = Form.useForm();
     const dispatch=useDispatch();
     const getUser=JSON.parse(localStorage.getItem('add-users'));
     console.log(getUser)
     const onFinish = (values) => {
-        dispatch(storeUsers({id:uuidv4(),firstname:values.firstname,lastname:values.lastname,email:values.email}));
-        console.log('Success:', );
+        if(action == "add"){
+            dispatch(storeUsers({id:uuidv4(),firstname:values.firstname,lastname:values.lastname,email:values.email}));
+        }
+        else
+        {
+            dispatch(updateUsers({id:edititem.id,firstname:values.firstname,lastname:values.lastname,email:values.email}));
+        }
+       
+        // console.log('Success:', );
+        form.resetFields();
         setShow(false);
     };
     const onFinishFailed = (errorInfo) => {
         // console.log('Failed:', errorInfo);
     };
-   
+    useEffect(()=>{
+        if(edititem)
+        {
+          form.setFieldsValue({
+            firstname:edititem.firstname,
+            lastname:edititem.lastname,
+            email:edititem.email,
+          });
+        }
+      },[edititem])
     const handleCancel=()=>{
         setShow(false);
     }
     return (
         <>
             <Modal
-                title="Add Users"
+                title={action=="add"?"Add Users":"Upate Users"}
                 open={show}
                 // onOk={handleOk}
                 footer={null}
@@ -39,6 +56,7 @@ const Model_Comp = ({ show, setShow }) => {
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
+                    form={form}
                 >
                     <Form.Item
                         label="First Name"
@@ -56,7 +74,7 @@ const Model_Comp = ({ show, setShow }) => {
                             },
                         ]}
                     >
-                        <Input />
+                        <Input/>
                     </Form.Item>
 
                     <Form.Item
@@ -116,9 +134,14 @@ const Model_Comp = ({ show, setShow }) => {
                                 offset: 0,
                             }}
                         >
-                            <Button type="primary" htmlType="submit" >
+                            {
+                                action=="add"?<Button type="primary" htmlType="submit" >
                                 Add
+                            </Button>:<Button type="primary" htmlType="submit" >
+                                Update
                             </Button>
+                            }
+                            
                         </Form.Item></Space>
 
                     {/* </div> */}
