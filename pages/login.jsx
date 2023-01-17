@@ -5,7 +5,7 @@ import {  getUserLogin, userLogin } from '../redux/actions/EventAction';
 import { useDispatch ,useSelector} from 'react-redux';
 import BackDrop from '../component/action/BackDrop';
 import { LOGIN, USERS } from '../services/routes';
-const login = () => {
+const Login = () => {
     const router = useRouter();
     const [loading,setLoading]=useState(false);
     const dispatch = useDispatch();
@@ -96,4 +96,4 @@ const login = () => {
     )
 }
 
-export default login
+export default Login

@@ -1,3 +1,3 @@
-export const CALENDAR = '/Calendar'
-export const USERS = '/Users'
-export const LOGIN = '/Login'
+export const CALENDAR = '/calendar'
+export const USERS = '/users'
+export const LOGIN = '/login'
