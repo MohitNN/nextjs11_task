@@ -25,7 +25,7 @@ const EventReducer = function(state=initialstate,action){
             }
         }
         case GET_EVENTS:{
-            return {...state,events:[...action.payload]}
+            return {...state,events:(action.payload)}
         }
         // case STORE_EVENTS:{
         //     localStorage.setItem('events',JSON.stringify(action.payload))

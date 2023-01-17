@@ -50,13 +50,19 @@ export const getUser=()=>(dispatch)=>{
 }
 
 export const getEvents = () => (dispatch) =>{
-  const events = localStorage.getItem('events');
+  const events = JSON.parse(localStorage.getItem('events')) || []
   dispatch({
     type:GET_EVENTS,
     payload:events
   })
 }
 
-export const storeEvents = (obj,events) =>(dispatch) =>{
- 
+export const storeEvents = (obj,setShow,form,setStartingDate) =>(dispatch) =>{
+  let events = JSON.parse(localStorage.getItem('events')) || [];
+  if(events.length == 0) events = [obj];
+  else (events).push(obj)
+    localStorage.setItem('events',JSON.stringify(events));
+    form.resetFields();
+    setStartingDate('');
+    setShow(false);
 }
