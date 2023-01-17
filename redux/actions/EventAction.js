@@ -89,16 +89,14 @@ export const storeEvents = (obj, setShow, form, setStartingDate) => (dispatch) =
     storeData('events', events)
    
 }
-export const deleteEvent = (obj, setEvent) => (dispatch) => {
+export const deleteEvent = (obj) => (dispatch) => {
     const events = JSON.parse(localStorage.getItem('events'));
     const filter_events = events.filter(item => item.id !== obj.id);
     dispatch({
         type: DELETE_EVENT,
         payload: filter_events
     })
-    setEvent({ show: false, info: {} })
     dispatch(getEvents())
-
 }
 
 export const updateEvent = (updateEvent, obj) => (dispatch) => {
