@@ -8,10 +8,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { getEvents, getUserLogin } from '../redux/actions/EventAction';
 import moment from "moment";
 import { useRouter } from "next/router";
-import { CALENDAR, USERS } from "../services/routes";
+import { CALENDAR, LOGIN, USERS } from "../services/routes";
 var $ = require("jquery");
 const Calendar = () => {
   const events = useSelector((state) => state.EventReducer.events);
+  console.log(events,'-----------------calendart events')
   const [startingDate, setStartingDate] = useState("");
   const [show, setShow] = useState(false);
   const [warning, setWarning] = useState(false);
@@ -28,16 +29,14 @@ const Calendar = () => {
     useEffect(()=>{
        dispatch(getUserLogin());
     },[])
+
     const login_user = useSelector((s) => s.EventReducer.user);
     useEffect(()=>{
-         if(login_user){
-            router.push(CALENDAR)
-         }
-         else
-         {
-            router.push("/login")
-         }
+         if(login_user) router.push(CALENDAR)
+         else router.push(LOGIN)
+         
     },[login_user])
+
   return (
     <>
       {

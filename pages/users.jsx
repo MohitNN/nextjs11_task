@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserLogin, getUsers } from '../redux/actions/EventAction';
 import { Space, Table, Tag } from 'antd';
 import UserDeleteModel from '../component/action/UserDeleteModel';
-import { USERS } from '../services/routes';
+import { LOGIN, USERS } from '../services/routes';
 const { Header, Content, Footer, Sider } = Layout;
 const users = () => {
     const dispatch = useDispatch();
@@ -75,7 +75,7 @@ const users = () => {
          }
          else
          {
-            router.push("/login")
+            router.push(LOGIN)
          }
     },[login_user])
     const handleDelete = (item) => {

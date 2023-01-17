@@ -1,3 +1,4 @@
+import { storeData } from "../../services/StorageService"
 import { GET_USERS, GET_USER_LOGIN, STORE_USERS, USER_LOGIN ,GET_EVENTS, DELETE_USERS, UPDATE_USERS, DELETE_EVENT, UPDATE_EVENT} from "../actions/EventAction"
 
 let initialstate = {
@@ -8,7 +9,8 @@ let initialstate = {
 const EventReducer = function(state=initialstate,action){
     switch (action.type) {
         case USER_LOGIN:{
-            localStorage.setItem('loggedIn-user',JSON.stringify(action.payload));
+            storeData('loggedIn-user',action.payload)
+            // localStorage.setItem('loggedIn-user',JSON.stringify(action.payload));
         }
         case GET_USER_LOGIN:{
             return{...state,
@@ -16,7 +18,8 @@ const EventReducer = function(state=initialstate,action){
             }
         }
         case STORE_USERS:{
-            localStorage.setItem("add-users", JSON.stringify(action.payload));
+            storeData("add-users",action.payload)
+            // localStorage.setItem("add-users", JSON.stringify(action.payload));
         }
         case GET_USERS:{
             return{...state,
@@ -24,19 +27,23 @@ const EventReducer = function(state=initialstate,action){
             }
         }
         case UPDATE_USERS:{
-            localStorage.setItem("add-users", JSON.stringify(action.payload));
+            storeData("add-users",action.payload)
+            // localStorage.setItem("add-users", JSON.stringify(action.payload));
         }
         case GET_EVENTS:{
             return {...state,events:(action.payload)}
         }
         case DELETE_USERS:{
-            localStorage.setItem("add-users", JSON.stringify(action.payload));
+            storeData("add-users",action.payload)
+            // localStorage.setItem("add-users", JSON.stringify(action.payload));
         }
         case DELETE_EVENT:{
-            localStorage.setItem("events", JSON.stringify(action.payload));
+            storeData("events",action.payload)
+            // localStorage.setItem("events", JSON.stringify(action.payload));
         }
         case UPDATE_EVENT:{
-            localStorage.setItem("events", JSON.stringify(action.payload));
+            storeData("events",action.payload)
+            // localStorage.setItem("events", JSON.stringify(action.payload));
         }
         default:
             return state
