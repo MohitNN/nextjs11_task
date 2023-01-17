@@ -28,7 +28,7 @@ const EventReducer = function(state=initialstate,action){
             localStorage.setItem("add-users", JSON.stringify(action.payload));
         }
         case GET_EVENTS:{
-            return {...state,events:[...action.payload]}
+            return {...state,events:(action.payload)}
         }
         case DELETE_USERS:{
             localStorage.setItem("add-users", JSON.stringify(action.payload));
