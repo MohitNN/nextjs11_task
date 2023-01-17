@@ -1,9 +1,9 @@
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import {  Layout, Menu} from 'antd';
 import React from 'react'
-import { FileOutlined, PieChartOutlined, UserOutlined, DesktopOutlined, TeamOutlined, CalendarOutlined } from '@ant-design/icons';
+import {  TeamOutlined, CalendarOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import { CALENDAR, USERS } from '../../services/routes';
-const { Header, Content, Footer, Sider } = Layout;
+const {  Sider } = Layout;
 
 function getItem(label, key, icon, children) {
   return {

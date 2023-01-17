@@ -1,34 +1,29 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import { Breadcrumb, Layout, Menu, Tooltip, theme } from "antd";
+import { Alert} from "antd";
 import { useState, useEffect } from "react";
 import interactionPlugin from "@fullcalendar/interaction";
 import EventModal from "../component/action/EventModal";
 import { useSelector, useDispatch } from "react-redux";
 import { getEvents, getUserLogin } from '../redux/actions/EventAction';
-const { Header, Content, Footer, Sider } = Layout;
 import moment from "moment";
 import { useRouter } from "next/router";
 import { CALENDAR, USERS } from "../services/routes";
 var $ = require("jquery");
 const Calendar = () => {
   const events = useSelector((state) => state.EventReducer.events);
+  const [startingDate, setStartingDate] = useState("");
+  const [show, setShow] = useState(false);
+  const [warning, setWarning] = useState(false);
+  const [event, setEvent] = useState({ show: false, info: {} });
 
-  
+  const dispatch = useDispatch();
+  let pageLoaded = false;
 
-    const [collapsed, setCollapsed] = useState(false);
-    const [startingDate, setStartingDate] = useState("");
-    const [show, setShow] = useState(false);
-    const [list, setList] = useState([]);
-    // const [showEvent,setShowEvent] = useState(false);
-    const [event, setEvent] = useState({ show: false, info: {} });
-
-    const dispatch = useDispatch();
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
-
-    let pageLoaded = false;
+  useEffect(() => {
+    if (!pageLoaded) dispatch(getEvents())
+    return () => pageLoaded = true
+  }, [pageLoaded, show, dispatch])
     const router=useRouter();
     useEffect(()=>{
        dispatch(getUserLogin());
@@ -45,6 +40,15 @@ const Calendar = () => {
     },[login_user])
   return (
     <>
+      {
+        warning && <Alert
+        style={{marginBottom:'15 px'}}
+        message="please select date strting from today !"
+        type="warning"
+        closable
+        onClose={() => setWarning(false)}
+      />
+      }
       <EventModal
         show={show}
         setShow={setShow}
@@ -53,30 +57,29 @@ const Calendar = () => {
         event={event}
         setEvent={setEvent}
       />
-              <FullCalendar
-                plugins={[dayGridPlugin, interactionPlugin]}
-                initialView="dayGridMonth"
-                events={events}
-                selectable={true}
-                editable={true}
-                displayEventTime={true}
-                eventBorderColor="rgba(0, 0, 0, 0.88)"
-                dateClick={(info) => {
-                  if(moment().format("YYYY-MM-DD") > moment(info.date).format("YYYY-MM-DD"))
-                  {
-                      alert('past date!!')
-                  }
-                  else{
-                    setShow(true);
-                    setStartingDate(moment(info.date).format("YYYY-MM-DD"));
-                  }
-                }}
-                eventClick={(info) => {
-                  setShow(true)
-                  setEvent((event)=>({show:true,info:info.event}))
-                }}
-            />
-        </>
-    );
+      <FullCalendar
+        plugins={[dayGridPlugin, interactionPlugin]}
+        initialView="dayGridMonth"
+        events={events}
+        selectable={true}
+        editable={true}
+        displayEventTime={true}
+        eventBorderColor="rgba(0, 0, 0, 0.88)"
+        dateClick={(info) => {
+          if (moment().format("YYYY-MM-DD") > moment(info.date).format("YYYY-MM-DD")) setWarning(true)
+
+          else {
+            setWarning(false)
+            setShow(true);
+            setStartingDate(moment(info.date).format("YYYY-MM-DD"));
+          }
+        }}
+        eventClick={(info) => {
+          setShow(true)
+          setEvent((event) => ({ show: true, info: info.event }))
+        }}
+      />
+    </>
+  );
 };
 export default Calendar;
