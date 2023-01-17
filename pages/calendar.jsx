@@ -48,9 +48,16 @@ let pageLoaded = false;
                 selectable={true}
                 editable={true}
                 displayEventTime={true}
+                eventBorderColor="rgba(0, 0, 0, 0.88)"
                 dateClick={(info) => {
-                  setShow(true);
-                  setStartingDate(moment(info.date).format("YYYY-MM-DD"));
+                  if(moment().format("YYYY-MM-DD") > moment(info.date).format("YYYY-MM-DD"))
+                  {
+                      alert('past date!!')
+                  }
+                  else{
+                    setShow(true);
+                    setStartingDate(moment(info.date).format("YYYY-MM-DD"));
+                  }
                 }}
                 eventClick={(info) => {
                   setShow(true)
