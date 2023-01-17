@@ -28,7 +28,6 @@ const login = () => {
     const onFinish = (values) => {
         setLoading(true)
         dispatch(userLogin(values,setLoading,router));
-        // router.replace(USERS)
     };
     return (
         <>

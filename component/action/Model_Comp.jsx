@@ -7,7 +7,6 @@ const Model_Comp = ({ show, setShow, edititem, action }) => {
     const [form] = Form.useForm();
     const dispatch = useDispatch();
     const getUser = JSON.parse(localStorage.getItem('add-users'));
-    console.log(getUser)
     const onFinish = (values) => {
         if (action == "add") {
             dispatch(storeUsers({ id: uuidv4(), firstname: values.firstname, lastname: values.lastname, email: values.email }));

@@ -26,18 +26,13 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
    handleCancel();
 
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
+  
   const handleDelete = () => {
     
     dispatch(deleteEvent(event.info))
     handleCancel();
   }
-  const handleOk = () => {
-    alert();
-  };
+  
 
 
   useEffect(() => {
@@ -54,7 +49,6 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
       <Modal
         title={event.info.end ? 'Update Event' :'Add Event'}
         open={show}
-        onOk={handleOk}
         footer={null}
         onCancel={() => handleCancel()}
       >
@@ -64,7 +58,7 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
             remember: true,
           }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
+        
           autoComplete="off"
           form={form}
         >
