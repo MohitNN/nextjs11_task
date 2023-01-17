@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserLogin, getUsers } from '../redux/actions/EventAction';
 import { Space, Table,} from 'antd';
 import UserDeleteModel from '../component/action/UserDeleteModel';
-import { USERS } from '../services/routes';
+import { LOGIN, USERS } from '../services/routes';
 const users = () => {
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);

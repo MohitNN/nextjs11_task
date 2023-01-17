@@ -5,8 +5,6 @@ const storeData =(key,value) => {
 const getData =(key) => {
  return JSON.parse(localStorage.getItem(key));
 }
-const removeData =(key) => {
-  return localStorage.clear();
- }
-export {storeData,getData,removeData}
+
+export {storeData,getData}
 

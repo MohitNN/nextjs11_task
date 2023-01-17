@@ -17,7 +17,7 @@ const HeaderComp = () => {
   } = theme.useToken();
   const login_user = useSelector((s) => s.EventReducer.user);
   const handleLogout=()=>{
-     dispatch(userLogout());
+     localStorage.clear();
      router.replace(LOGIN)
   }
   const handleLogin=()=>{

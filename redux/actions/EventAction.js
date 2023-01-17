@@ -29,11 +29,6 @@ export const getUserLogin = () => (dispatch) => {
         payload: obj
     })
 }
-export const userLogout = () => (dispatch) => {
-    dispatch({
-        type: USER_LOGOUT,
-    })
-}
 export const storeUsers = (obj) => (dispatch) => {
     var add = [];
     add = getData('add-users') || [];

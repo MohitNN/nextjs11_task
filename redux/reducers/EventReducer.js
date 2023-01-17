@@ -39,9 +39,6 @@ const EventReducer = function(state=initialstate,action){
         case UPDATE_EVENT:{
             storeData("events",action.payload)
         }
-        case USER_LOGOUT:{
-            removeData();
-        }
         default:
             return state
     }
