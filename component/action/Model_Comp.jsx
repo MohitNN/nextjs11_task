@@ -3,20 +3,19 @@ import { Button, Modal, Checkbox, Form, Input, Space } from 'antd';
 import { useDispatch } from 'react-redux';
 import { storeUsers, updateUsers } from '../../redux/actions/EventAction';
 import { v4 as uuidv4 } from 'uuid';
-const Model_Comp = ({ show, setShow ,edititem,setEditItem,action,setAction}) => {
+const Model_Comp = ({ show, setShow, edititem, setEditItem, action, setAction }) => {
     const [form] = Form.useForm();
-    const dispatch=useDispatch();
-    const getUser=JSON.parse(localStorage.getItem('add-users'));
+    const dispatch = useDispatch();
+    const getUser = JSON.parse(localStorage.getItem('add-users'));
     console.log(getUser)
     const onFinish = (values) => {
-        if(action == "add"){
-            dispatch(storeUsers({id:uuidv4(),firstname:values.firstname,lastname:values.lastname,email:values.email}));
+        if (action == "add") {
+            dispatch(storeUsers({ id: uuidv4(), firstname: values.firstname, lastname: values.lastname, email: values.email }));
         }
-        else
-        {
-            dispatch(updateUsers({id:edititem.id,firstname:values.firstname,lastname:values.lastname,email:values.email}));
+        else {
+            dispatch(updateUsers({ id: edititem.id, firstname: values.firstname, lastname: values.lastname, email: values.email }));
         }
-       
+
         // console.log('Success:', );
         form.resetFields();
         setShow(false);
@@ -24,23 +23,22 @@ const Model_Comp = ({ show, setShow ,edititem,setEditItem,action,setAction}) => 
     const onFinishFailed = (errorInfo) => {
         // console.log('Failed:', errorInfo);
     };
-    useEffect(()=>{
-        if(edititem)
-        {
-          form.setFieldsValue({
-            firstname:edititem.firstname,
-            lastname:edititem.lastname,
-            email:edititem.email,
-          });
+    useEffect(() => {
+        if (edititem) {
+            form.setFieldsValue({
+                firstname: edititem.firstname,
+                lastname: edititem.lastname,
+                email: edititem.email,
+            });
         }
-      },[edititem])
-    const handleCancel=()=>{
+    }, [edititem])
+    const handleCancel = () => {
         setShow(false);
     }
     return (
         <>
             <Modal
-                title={action=="add"?"Add Users":"Upate Users"}
+                title={action == "add" ? "Add Users" : "Upate Users"}
                 open={show}
                 // onOk={handleOk}
                 footer={null}
@@ -74,7 +72,7 @@ const Model_Comp = ({ show, setShow ,edititem,setEditItem,action,setAction}) => 
                             },
                         ]}
                     >
-                        <Input/>
+                        <Input />
                     </Form.Item>
 
                     <Form.Item
@@ -119,30 +117,32 @@ const Model_Comp = ({ show, setShow ,edititem,setEditItem,action,setAction}) => 
                         <Input />
                     </Form.Item>
                     {/* <div style={{display:"flex"}}> */}
-                    <Space wrap style={{ justifyContent: "end", width: "100%" }}>  <Form.Item
-                        wrapperCol={{
-                            offset: 0,
-                        }}
-                    >
+                    <Space wrap style={{ justifyContent: "end", width: "100%" }}>
+                        <Form.Item
+                            wrapperCol={{
+                                offset: 0,
+                            }}
+                        >
 
-                        <Button type="primary" danger onClick={()=>{handleCancel()}}>
-                            cancle
-                        </Button>
-                    </Form.Item>
+                            <Button type="primary" danger onClick={() => { handleCancel() }}>
+                                cancle
+                            </Button>
+                        </Form.Item>
                         <Form.Item
                             wrapperCol={{
                                 offset: 0,
                             }}
                         >
                             {
-                                action=="add"?<Button type="primary" htmlType="submit" >
-                                Add
-                            </Button>:<Button type="primary" htmlType="submit" >
-                                Update
-                            </Button>
+                                action == "add" ? <Button type="primary" htmlType="submit" >
+                                    Add
+                                </Button> : <Button type="primary" htmlType="submit" >
+                                    Update
+                                </Button>
                             }
-                            
-                        </Form.Item></Space>
+
+                        </Form.Item>
+                    </Space>
 
                     {/* </div> */}
 

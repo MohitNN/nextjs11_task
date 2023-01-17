@@ -4,6 +4,7 @@ import '../styles/globals.css'
 import '../styles/login.css'
 import '../styles/BackDrop.css'
 import '../styles/users.css'
+import '../styles/calender.css'
 import Layout_Comp from '../component/layout/Layout_Comp'
 import { useRouter } from 'next/router'
 function MyApp({ Component, pageProps }) {

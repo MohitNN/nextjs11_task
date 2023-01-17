@@ -131,6 +131,7 @@ const EventModal = ({ show, setShow ,starting_date,setStartingDate,setEvent,even
                 {event.show ? 'Delete' : 'Cancel'}
               </Button>
             </Form.Item>
+            
             <Form.Item
               wrapperCol={{
                 offset: 0,
