@@ -7,10 +7,11 @@ import '../styles/users.css'
 import '../styles/calender.css'
 import Layout_Comp from '../component/layout/Layout_Comp'
 import { useRouter } from 'next/router'
+import { LOGIN } from '../services/routes'
 function MyApp({ Component, pageProps }) {
   const {pathname}=useRouter();
   return <Provider store={Store}>
-    {pathname == "/login" ? <Component {...pageProps} /> : <Layout_Comp> <Component {...pageProps} /></Layout_Comp>
+    {pathname == LOGIN ? <Component {...pageProps} /> : <Layout_Comp> <Component {...pageProps} /></Layout_Comp>
    }
     
   </Provider>
