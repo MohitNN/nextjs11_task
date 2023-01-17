@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react'
-import Router, { useRouter } from 'next/router';
-import HeaderComp from '../component/layout/HeaderComp';
-import FooterComp from '../component/layout/FooterComp';
-import Sidebar from '../component/layout/Sidebar';
-import { Breadcrumb, Layout, Menu, theme, Button } from 'antd';
+import{ useRouter } from 'next/router';
+import {Button } from 'antd';
 import { useState } from "react";
 import Model_Comp from '../component/action/Model_Comp';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserLogin, getUsers } from '../redux/actions/EventAction';
-import { Space, Table, Tag } from 'antd';
+import { Space, Table,} from 'antd';
 import UserDeleteModel from '../component/action/UserDeleteModel';
 import { USERS } from '../services/routes';
-const { Header, Content, Footer, Sider } = Layout;
 const users = () => {
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);

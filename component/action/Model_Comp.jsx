@@ -3,7 +3,7 @@ import { Button, Modal, Checkbox, Form, Input, Space } from 'antd';
 import { useDispatch } from 'react-redux';
 import { storeUsers, updateUsers } from '../../redux/actions/EventAction';
 import { v4 as uuidv4 } from 'uuid';
-const Model_Comp = ({ show, setShow, edititem, setEditItem, action, setAction }) => {
+const Model_Comp = ({ show, setShow, edititem, action }) => {
     const [form] = Form.useForm();
     const dispatch = useDispatch();
     const getUser = JSON.parse(localStorage.getItem('add-users'));
@@ -15,13 +15,8 @@ const Model_Comp = ({ show, setShow, edititem, setEditItem, action, setAction })
         else {
             dispatch(updateUsers({ id: edititem.id, firstname: values.firstname, lastname: values.lastname, email: values.email }));
         }
-
-        // console.log('Success:', );
         form.resetFields();
         setShow(false);
-    };
-    const onFinishFailed = (errorInfo) => {
-        // console.log('Failed:', errorInfo);
     };
     useEffect(() => {
         if (edititem) {
@@ -40,19 +35,15 @@ const Model_Comp = ({ show, setShow, edititem, setEditItem, action, setAction })
             <Modal
                 title={action == "add" ? "Add Users" : "Upate Users"}
                 open={show}
-                // onOk={handleOk}
                 footer={null}
-                // confirmLoading={confirmLoading}
                 onCancel={handleCancel}
             >
                 <Form
                     name="basic"
-
                     initialValues={{
                         remember: true,
                     }}
                     onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
                     autoComplete="off"
                     form={form}
                 >
@@ -116,7 +107,7 @@ const Model_Comp = ({ show, setShow, edititem, setEditItem, action, setAction })
                     >
                         <Input />
                     </Form.Item>
-                    {/* <div style={{display:"flex"}}> */}
+                 
                     <Space wrap style={{ justifyContent: "end", width: "100%" }}>
                         <Form.Item
                             wrapperCol={{
@@ -144,7 +135,7 @@ const Model_Comp = ({ show, setShow, edititem, setEditItem, action, setAction })
                         </Form.Item>
                     </Space>
 
-                    {/* </div> */}
+                  
 
                 </Form>
             </Modal>

@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getEvents, getUserLogin } from '../redux/actions/EventAction';
 import moment from "moment";
 import { useRouter } from "next/router";
-import { CALENDAR, USERS } from "../services/routes";
+import { CALENDAR} from "../services/routes";
 var $ = require("jquery");
 const Calendar = () => {
   const events = useSelector((state) => state.EventReducer.events);

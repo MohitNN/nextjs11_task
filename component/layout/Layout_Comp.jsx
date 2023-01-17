@@ -5,7 +5,7 @@ import HeaderComp from './HeaderComp';
 import FooterComp from './FooterComp';
 import {useRouter} from 'next/router';
 import { CALENDAR, USERS } from '../../services/routes';
-const { Header, Content, Footer, Sider } = Layout;
+const {Content} = Layout;
 const Layout_Comp = ({children}) => {
   const [collapsed, setCollapsed] = useState(false);
   const {

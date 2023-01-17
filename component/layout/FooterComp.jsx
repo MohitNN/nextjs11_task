@@ -1,5 +1,5 @@
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
-const { Header, Content, Footer, Sider } = Layout;
+import {Layout} from 'antd';
+const {Footer} = Layout;
 import React from 'react'
 
 const FooterComp = () => {

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Checkbox, Form, Input, Text ,Spin} from 'antd';
-import { getLoggedInUser, storeLoggedInUser } from '../services/StorageService';
+import { Button, Form, Input} from 'antd';
 import { useRouter } from 'next/router';
 import {  getUserLogin, userLogin } from '../redux/actions/EventAction';
 import { useDispatch ,useSelector} from 'react-redux';
 import BackDrop from '../component/action/BackDrop';
+import { LOGIN, USERS } from '../services/routes';
 const login = () => {
     const router = useRouter();
     const [loading,setLoading]=useState(false);
-    // const user = getLoggedInUser();
     const dispatch = useDispatch();
     
     useEffect(() => {
@@ -16,21 +15,21 @@ const login = () => {
        
     },[dispatch])
     const user=useSelector((s)=>s.EventReducer.user);
-    // useEffect(()=>{
-    //      if(user)
-    //      {
-    //         router.push("/");
-    //      }
-    // },[user])
+    useEffect(()=>{
+         if(user)
+         {
+            router.replace(USERS)
+         }
+         else
+         {
+            router.replace(LOGIN)
+         }
+    },[user])
     const onFinish = (values) => {
-    console.log(values)
         setLoading(true)
         dispatch(userLogin(values,setLoading,router));
+        // router.replace(USERS)
     };
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
-
     return (
         <>
             {loading?<BackDrop/>:null}
@@ -41,7 +40,6 @@ const login = () => {
                     <Form
                         name="basic"
                         onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
                         autoComplete="off"
                         initialValues={{
                             remember: true,
