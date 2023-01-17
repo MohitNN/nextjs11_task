@@ -5,8 +5,7 @@ import HeaderComp from './HeaderComp';
 import FooterComp from './FooterComp';
 import {useRouter} from 'next/router';
 import { CALENDAR, USERS } from '../../services/routes';
-// import { CALENDAR } from '../../services/routes';
-// import Calendar from '../../pages/calendar';
+
 const { Header, Content, Footer, Sider } = Layout;
 
 
@@ -17,8 +16,7 @@ const Layout_Comp = ({children}) => {
   } = theme.useToken();
 
   const router = useRouter();
-//   console.log(CALENDAR)
-  console.log(router.pathname)
+
   return (
     <>
       <Layout
@@ -50,7 +48,6 @@ const Layout_Comp = ({children}) => {
               }}
             >
                 {children}
-              {/* {router.pathname == CALENDAR ? <Calender/> :'this is cat'} */}
             </div>
           </Content>
           <FooterComp/>

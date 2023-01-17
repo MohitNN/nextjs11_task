@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Button, Modal, Checkbox, Form, Input, Space, DatePicker } from "antd";
+import { Button, Modal, Form, Input, Space, DatePicker } from "antd";
 import { v4 as uuidv4 } from "uuid";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import moment from "moment";
 import { deleteEvent, storeEvents, updateEvent } from '../../redux/actions/EventAction';
 
@@ -44,7 +44,6 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
         open={show}
         onOk={handleOk}
         footer={null}
-        // confirmLoading={confirmLoading}
         onCancel={() => { setShow(false); setEvent({ show: false, info: {} }) }}
       >
         <Form
@@ -75,27 +74,6 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
           >
             <Input />
           </Form.Item>
-
-          {/* <Form.Item
-            label="Start date"
-            name="start_date"
-            labelCol={{
-              span: 6,
-            }}
-            wrapperCol={{
-              span: 16,
-            }}
-            rules={[
-              {
-                type: "object",
-                required: true,
-                message: "enter starting date of an event!",
-              },
-            ]}
-          >
-            <DatePicker />
-          </Form.Item> */}
-
           <Form.Item
             label="Ending date"
             name="ending_date"
@@ -119,9 +97,7 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
               }}
             />
           </Form.Item>
-          {/* <div style={{display:"flex"}}> */}
           <Space wrap style={{ justifyContent: "end", width: "100%" }}>
-            {" "}
             <Form.Item
               wrapperCol={{
                 offset: 0,
@@ -146,8 +122,6 @@ const EventModal = ({ show, setShow, starting_date, setStartingDate, setEvent, e
               </Button>
             </Form.Item>
           </Space>
-
-          {/* </div> */}
         </Form>
       </Modal>
     </>

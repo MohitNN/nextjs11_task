@@ -13,7 +13,6 @@ export const userLogin = (obj, setLoading, router) => (dispatch) => {
         type: USER_LOGIN,
         payload: obj
     })
-
     setLoading(false);
     router.push("/")
 }
@@ -26,8 +25,6 @@ export const getUserLogin = () => (dispatch) => {
 }
 
 export const storeUsers = (obj) => (dispatch) => {
-    console.log(obj, "------------users")
-
     var add = [];
     add = JSON.parse(localStorage.getItem('add-users')) || [];
     add.push(obj);
@@ -56,6 +53,7 @@ export const deleteUsers = (obj) => (dispatch) => {
 
 export const updateUsers = (obj) => (dispatch) => {
     const getUser = JSON.parse(localStorage.getItem('add-users'));
+
     for (var i = 0; i < getUser.length; i++) {
         if (obj.id === getUser[i].id) {
             getUser[i].firstname = obj.firstname;
@@ -80,7 +78,6 @@ export const getEvents = () => (dispatch) =>{
   }
 
 export const storeEvents = (obj,setShow,form,setStartingDate) =>(dispatch) =>{
-    console.log(obj,'-------------------------------add')
   let events = JSON.parse(localStorage.getItem('events')) || [];
   if(events.length == 0) events = [obj];
   else (events).push(obj)
@@ -104,20 +101,11 @@ export const deleteEvent = (obj,setEvent,setShow,form,setStartingDate) => (dispa
 }
 
 export const updateEvent = (updateEvent,obj,setShow,form,setStartingDate) => (dispatch) => {
-    console.log(obj,'-----------update')
     let events = JSON.parse(localStorage.getItem('events'));
     events = events.map((item)=>{
         if(item.id == updateEvent.id) return obj
         else return item
     })
-    // for (var i = 0; i < events.length; i++) {
-    //     if (obj.id === events[i].id) {
-    //         events[i].firstname = obj.firstname;
-    //         events[i].lastname = obj.lastname;
-    //         events[i].email = obj.email;
-    //         break;
-    //     }
-    // }
     dispatch({
         type: UPDATE_EVENT,
         payload: events
